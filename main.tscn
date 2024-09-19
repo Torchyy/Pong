@@ -1,0 +1,97 @@
+[gd_scene load_steps=10 format=3 uid="uid://c468ev3tlaikc"]
+
+[ext_resource type="PackedScene" uid="uid://d3oulnmc6xal7" path="res://ball.tscn" id="1_aj58e"]
+[ext_resource type="FontFile" uid="uid://d22oat816e5r8" path="res://Xolonium-Regular.ttf" id="1_s3iwa"]
+[ext_resource type="Script" path="res://goal.gd" id="3_jn05w"]
+[ext_resource type="Script" path="res://goal_2.gd" id="4_3psnw"]
+[ext_resource type="PackedScene" uid="uid://dnn32i01vdnj0" path="res://player.tscn" id="5_f2etm"]
+[ext_resource type="PackedScene" uid="uid://do0713ij360dx" path="res://player_2.tscn" id="6_siknd"]
+
+[sub_resource type="Theme" id="Theme_dnteq"]
+default_font = ExtResource("1_s3iwa")
+default_font_size = 64
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g00xu"]
+size = Vector2(86, 645)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bid0h"]
+size = Vector2(86, 645)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 324)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="HUD" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_dnteq")
+
+[node name="Score" type="Label" parent="CanvasLayer/HUD"]
+layout_mode = 0
+offset_left = 344.0
+offset_top = 1.0
+offset_right = 389.0
+offset_bottom = 79.0
+text = "0"
+
+[node name="Score2" type="Label" parent="CanvasLayer/HUD"]
+layout_mode = 0
+offset_left = 707.0
+offset_top = 1.0
+offset_right = 752.0
+offset_bottom = 79.0
+text = "0"
+
+[node name="Ball" parent="." instance=ExtResource("1_aj58e")]
+
+[node name="Goal" type="Node2D" parent="." node_paths=PackedStringArray("target_node")]
+script = ExtResource("3_jn05w")
+ball_scene = ExtResource("1_aj58e")
+target_node = NodePath("..")
+
+[node name="Area2D" type="Area2D" parent="Goal"]
+position = Vector2(576, 324)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goal/Area2D"]
+position = Vector2(-622, -1)
+shape = SubResource("RectangleShape2D_g00xu")
+
+[node name="Goal2" type="Node2D" parent="." node_paths=PackedStringArray("target_node")]
+script = ExtResource("4_3psnw")
+ball_scene = ExtResource("1_aj58e")
+target_node = NodePath("..")
+
+[node name="Area2D" type="Area2D" parent="Goal2"]
+position = Vector2(576, 324)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goal2/Area2D"]
+position = Vector2(624, -0.5)
+shape = SubResource("RectangleShape2D_bid0h")
+
+[node name="Player" parent="." instance=ExtResource("5_f2etm")]
+
+[node name="Player2" parent="." instance=ExtResource("6_siknd")]
+
+[node name="Boundary" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Boundary"]
+polygon = PackedVector2Array(-4, 648, 1159, 648, 1156, 722, -2, 713)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Boundary"]
+polygon = PackedVector2Array(1159, 0, -4, 0, -2, -57, 1151, -57)

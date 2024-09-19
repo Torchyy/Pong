@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnn32i01vdnj0"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_u0bh1"]
+[ext_resource type="Texture2D" uid="uid://dv5ch8u6a85en" path="res://paddle.png" id="2_3su7c"]
+
+[node name="Player" type="Node2D"]
+script = ExtResource("1_u0bh1")
+
+[node name="PlayerSprite" type="Sprite2D" parent="."]
+position = Vector2(13, 353)
+rotation = -1.5708
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_3su7c")
+
+[node name="Area2D" type="Area2D" parent="PlayerSprite"]
+position = Vector2(608.139, -43.0671)
+rotation = 1.5708
+scale = Vector2(1.72277, 1.72277)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PlayerSprite/Area2D"]
+position = Vector2(25, 353)
+rotation = -1.5708
+scale = Vector2(0.58046, 0.58046)
+polygon = PackedVector2Array(160.218, 5.72205e-05, 120.594, 46.5149, -111.98, 48.2377, -148.158, 4.19617e-05)
